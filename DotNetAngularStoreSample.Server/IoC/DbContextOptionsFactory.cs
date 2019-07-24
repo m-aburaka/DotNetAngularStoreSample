@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace DotNetAngularStoreSample.Server.IoC
 {
+    /// <summary>
+    /// Creates options for Db context with connection string from appsettings.json
+    /// </summary>
     public class DbContextOptionsFactory
     {
         public static DbContextOptions<AppDbContext> Get(IConfiguration configuration)

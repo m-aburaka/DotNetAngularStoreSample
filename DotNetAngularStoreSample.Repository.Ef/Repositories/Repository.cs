@@ -7,39 +7,45 @@ namespace DotNetAngularStoreSample.Repository.Ef.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext Context;
 
         public Repository(AppDbContext context)
         {
-            _context = context;
+            Context = context;
+        }
+
+        public async Task<bool> Exists(int id)
+        {
+            var entity = await Context.FindAsync<T>(id);
+            return entity != null;
         }
 
         public async Task<IList<T>> Get()
         {
-            return await _context.Set<T>().ToListAsync();
+            return await Context.Set<T>().ToListAsync();
         }
 
         public async Task<T> Get(int id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            return await Context.Set<T>().FindAsync(id);
         }
 
         public async Task Insert(T entity)
         {
-            _context.Set<T>().Add(entity);
-            await _context.SaveChangesAsync();
+            Context.Set<T>().Add(entity);
+            await Context.SaveChangesAsync();
         }
 
         public async Task Update(T entity)
         {
-            _context.Set<T>().Update(entity);
-            await _context.SaveChangesAsync();
+            Context.Set<T>().Update(entity);
+            await Context.SaveChangesAsync();
         }
 
         public async Task Delete(T entity)
         {
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
+            Context.Set<T>().Remove(entity);
+            await Context.SaveChangesAsync();
         }
     }
 }

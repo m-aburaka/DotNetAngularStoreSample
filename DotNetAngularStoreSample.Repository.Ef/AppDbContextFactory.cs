@@ -7,7 +7,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace DotNetAngularStoreSample.Repository.Ef
 {
-    public class BloggingContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    /// <summary>
+    /// Creates db context with connection string, specified in current project's appsettings.json
+    /// Note that migrations will be made with that connection string, instead of Server's.
+    /// </summary>
+    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
         public AppDbContext CreateDbContext(string[] args)
         {

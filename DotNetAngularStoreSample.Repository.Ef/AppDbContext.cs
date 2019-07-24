@@ -1,4 +1,5 @@
 ﻿using DotNetAngularStoreSample.Models;
+using DotNetAngularStoreSample.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNetAngularStoreSample.Repository.Ef

@@ -6,6 +6,9 @@ using Module = Autofac.Module;
 
 namespace DotNetAngularStoreSample.Server.IoC
 {
+    /// <summary>
+    /// Main DI module for server app, registers other modules and database repositories
+    /// </summary>
     public class ServerModule : Module
     {
         private readonly IConfiguration _configuration;
@@ -17,8 +20,6 @@ namespace DotNetAngularStoreSample.Server.IoC
 
         protected override void Load(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder.RegisterModule<ApplicationModule>();
             builder.RegisterServerRepositories(typeof(EfRepositoryAssemblyReference).Assembly);
 

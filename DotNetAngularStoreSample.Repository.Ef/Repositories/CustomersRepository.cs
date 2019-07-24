@@ -1,7 +1,5 @@
-﻿using System;
-using System.Text;
-using DotNetAngularStoreSample.Application.Repositories;
-using DotNetAngularStoreSample.Models;
+﻿using DotNetAngularStoreSample.Application.Repositories;
+using DotNetAngularStoreSample.Models.DomainModels;
 
 namespace DotNetAngularStoreSample.Repository.Ef.Repositories
 {

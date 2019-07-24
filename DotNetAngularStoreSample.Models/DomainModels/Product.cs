@@ -1,4 +1,4 @@
-﻿namespace DotNetAngularStoreSample.Models
+﻿namespace DotNetAngularStoreSample.Models.DomainModels
 {
     public class Product
     {

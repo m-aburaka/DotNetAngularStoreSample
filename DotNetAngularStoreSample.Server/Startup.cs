@@ -1,7 +1,9 @@
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DotNetAngularStoreSample.Application.Services;
 using DotNetAngularStoreSample.Server.IoC;
+using DotNetAngularStoreSample.Server.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +55,7 @@ namespace DotNetAngularStoreSample.Server
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.ConfigureExceptionHandler(app.ApplicationServices.GetService<ExceptionHandlerService>());
 
             app.UseMvc(routes =>
             {
@@ -75,6 +78,9 @@ namespace DotNetAngularStoreSample.Server
             });
         }
 
+        /// <summary>
+        /// Builds main AutoFac DI module
+        /// </summary>
         private IServiceProvider BuildContainer(IServiceCollection services)
         {
             var builder = new ContainerBuilder();

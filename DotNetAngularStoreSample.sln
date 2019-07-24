@@ -5,11 +5,13 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetAngularStoreSample.Server", "DotNetAngularStoreSample.Server\DotNetAngularStoreSample.Server.csproj", "{B8C42919-8681-459A-BAB7-0BA5B79AEF5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetAngularStoreSample.Models", "DotNetAngularStoreSample.Models\DotNetAngularStoreSample.Models.csproj", "{AFB0A718-101D-48BD-9284-C3027BD772A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetAngularStoreSample.Models", "DotNetAngularStoreSample.Models\DotNetAngularStoreSample.Models.csproj", "{AFB0A718-101D-48BD-9284-C3027BD772A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetAngularStoreSample.Application", "DotNetAngularStoreSample.Application\DotNetAngularStoreSample.Application.csproj", "{86A91726-EAF3-4330-87DD-EFEA6B206A07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetAngularStoreSample.Application", "DotNetAngularStoreSample.Application\DotNetAngularStoreSample.Application.csproj", "{86A91726-EAF3-4330-87DD-EFEA6B206A07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetAngularStoreSample.Repository.Ef", "DotNetAngularStoreSample.Repository.Ef\DotNetAngularStoreSample.Repository.Ef.csproj", "{C3A84CD5-C9FF-4D26-80F0-B4A76D47495F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetAngularStoreSample.Repository.Ef", "DotNetAngularStoreSample.Repository.Ef\DotNetAngularStoreSample.Repository.Ef.csproj", "{C3A84CD5-C9FF-4D26-80F0-B4A76D47495F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetAngularStoreSample.Server.Tests", "DotNetAngularStoreSample.Server.Tests\DotNetAngularStoreSample.Server.Tests.csproj", "{BE99CAD5-2BCD-41DA-90EF-0BD2B25E8283}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C3A84CD5-C9FF-4D26-80F0-B4A76D47495F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3A84CD5-C9FF-4D26-80F0-B4A76D47495F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3A84CD5-C9FF-4D26-80F0-B4A76D47495F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE99CAD5-2BCD-41DA-90EF-0BD2B25E8283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE99CAD5-2BCD-41DA-90EF-0BD2B25E8283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE99CAD5-2BCD-41DA-90EF-0BD2B25E8283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE99CAD5-2BCD-41DA-90EF-0BD2B25E8283}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

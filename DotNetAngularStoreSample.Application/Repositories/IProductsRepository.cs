@@ -1,4 +1,5 @@
 ﻿using DotNetAngularStoreSample.Models;
+using DotNetAngularStoreSample.Models.DomainModels;
 
 namespace DotNetAngularStoreSample.Application.Repositories
 {

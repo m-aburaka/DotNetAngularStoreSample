@@ -40,6 +40,9 @@ namespace DotNetAngularStoreSample.Application.IoC
             }
         }
 
+        /// <summary>
+        /// Registers classes which implement IPipelineBehavior (MediatR pipeline) 
+        /// </summary>
         public static void RegisterMediatorBehaviours(this ContainerBuilder builder, Assembly assembly)
         {
             foreach (var type in assembly.ExportedTypes)
@@ -52,12 +55,38 @@ namespace DotNetAngularStoreSample.Application.IoC
             }
         }
 
+        /// <summary>
+        /// Registers classes named *Repository for the assembly
+        /// </summary>
         public static void RegisterServerRepositories(this ContainerBuilder builder, Assembly assembly)
         {
             builder.RegisterAssemblyTypes(assembly)
                 .Where(t => t.Name.Contains("Repository"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+        }
+
+        /// <summary>
+        /// Registers classes named *Service for the assembly
+        /// </summary>
+        public static void RegisterServices(this ContainerBuilder builder, Assembly assembly)
+        {
+            builder.RegisterAssemblyTypes(assembly)
+                .Where(t => t.Name.Contains("Service") && !t.IsGenericType)
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            foreach (var type in assembly.ExportedTypes)
+            {
+                if (type.Name.Contains("Service") && type.IsGenericType)
+                {
+                    builder.RegisterGeneric(type)
+                        .AsSelf()
+                        .AsImplementedInterfaces()
+                        .InstancePerLifetimeScope();
+                }
+            }
         }
     }
 }
