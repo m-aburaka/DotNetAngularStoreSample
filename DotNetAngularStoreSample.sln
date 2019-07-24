@@ -13,6 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetAngularStoreSample.Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetAngularStoreSample.Server.Tests", "DotNetAngularStoreSample.Server.Tests\DotNetAngularStoreSample.Server.Tests.csproj", "{BE99CAD5-2BCD-41DA-90EF-0BD2B25E8283}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C885563A-DC2F-4791-AA80-9B0035D1C1FB}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
