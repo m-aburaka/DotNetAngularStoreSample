@@ -1,0 +1,11 @@
+<app-spinner *ngIf="loading && !error"></app-spinner>
+<app-error [error]="error"></app-error>
+
+<div class="root-flex" *ngIf="!loading && !error">
+  <mat-list class="list-common">
+    <app-product *ngFor="let product of products" [product]="product">
+    </app-product>
+  </mat-list>
+
+  <app-product-new class="create-container"></app-product-new>
+</div>

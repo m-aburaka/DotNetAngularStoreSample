@@ -1,0 +1,19 @@
+<mat-list-item>
+  <mat-icon mat-list-icon>archive</mat-icon>
+  <strong>
+    {{ purchase.productName }}
+  </strong>
+
+  <div class="button-container">
+    <button
+      mat-raised-button
+      color="primary"
+      class="button"
+      (click)="onDeleteClick()"
+    >
+      DELETE
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+</mat-list-item>

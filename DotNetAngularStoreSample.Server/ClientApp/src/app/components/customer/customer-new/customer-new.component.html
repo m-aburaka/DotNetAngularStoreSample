@@ -1,0 +1,26 @@
+<div>
+  <h4>Add new customer</h4>
+
+  <mat-divider></mat-divider>
+
+  <div class="flex">
+    <form>
+      <mat-form-field>
+        <input matInput placeholder="Name" #name />
+      </mat-form-field>
+    </form>
+
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        class="button"
+        (click)="onAddClick()"
+      >
+        ADD
+      </button>
+    </div>
+
+    <mat-divider></mat-divider>
+  </div>
+</div>
