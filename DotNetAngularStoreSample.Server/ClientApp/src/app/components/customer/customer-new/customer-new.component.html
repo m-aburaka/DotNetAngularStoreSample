@@ -6,7 +6,16 @@
   <div class="flex">
     <form>
       <mat-form-field>
-        <input matInput placeholder="Name" #name />
+        <input
+          matInput
+          placeholder="Name"
+          [formControl]="nameControl"
+          (keyup.enter)="onEnterKeyDown(newCustomerName.value)"
+          #newCustomerName
+        />
+        <mat-error *ngIf="nameControl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
       </mat-form-field>
     </form>
 
@@ -15,7 +24,7 @@
         mat-raised-button
         color="primary"
         class="button"
-        (click)="onAddClick()"
+        (click)="onAddClick(newCustomerName.value)"
       >
         ADD
       </button>

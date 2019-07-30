@@ -1,9 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl } from "@angular/forms";
+import { Component, OnInit, Input } from "@angular/core";
+import {
+  FormControl,
+  Validators,
+  AbstractControl,
+  ValidationErrors
+} from "@angular/forms";
 import { startWith, map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ProductsService } from "../../../core/services/products.service";
 import { Product } from "../../../core/models/Product";
+import { CustomerPurchasesService } from "./../../../core/services/customer-purchases.service";
+import { Customer } from "src/app/core/models/Customer";
 
 @Component({
   selector: "app-customer-purchase-new",
@@ -11,34 +18,97 @@ import { Product } from "../../../core/models/Product";
   styleUrls: ["../../shared.styles.css"]
 })
 export class CustomerPurchaseNewComponent implements OnInit {
-  myControl = new FormControl();
+  @Input() customer: Customer;
+  productControl = new FormControl("", [
+    Validators.required,
+    this.validateProduct.bind(this)
+  ]);
   products: Product[];
   filteredProducts: Observable<Product[]>;
+  selectedProduct: Product;
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private customerPurchasesService: CustomerPurchasesService
+  ) {}
 
   ngOnInit() {
     this.productsService
-      .get()
+      .getAll()
       .subscribe(products => (this.products = products));
 
-    this.filteredProducts = this.myControl.valueChanges.pipe(
+    this.filteredProducts = this.productControl.valueChanges.pipe(
       startWith(""),
       map(value => this._filter(value))
     );
   }
 
-  private _filter(value: string): Product[] {
+  validateProduct(control: AbstractControl): ValidationErrors {
+    if (this.selectedProduct) {
+      return null;
+    } else {
+      return {
+        validateProduct: {
+          valid: false
+        }
+      };
+    }
+  }
+
+  onNameChange(value: string) {
+    if (this.selectedProduct && this.selectedProduct.name !== value) {
+      this.selectedProduct = null;
+      this.productControl.updateValueAndValidity();
+    }
+  }
+
+  private _filter(value: string | Product): Product[] {
     if (!this.products) {
       return;
     }
 
-    const filterValue = value.toLowerCase();
+    let filterValue: string;
+    if (!value) {
+      filterValue = "";
+    } else if (typeof value === "string") {
+      filterValue = value.toLowerCase();
+    } else {
+      filterValue = value.name.toLowerCase();
+    }
 
-    return this.products.filter(product =>
-      product.name.toLowerCase().includes(filterValue)
+    return this.products.filter(p =>
+      p.name.toLowerCase().includes(filterValue)
     );
   }
 
-  onAddClick() {}
+  onEnterKeyDown() {
+    this.onAddClick();
+  }
+
+  onAddClick() {
+    console.log("onAdd --> ", this.selectedProduct);
+    if (this.selectedProduct) {
+      this.customerPurchasesService.add(this.customer, this.selectedProduct);
+      this.selectedProduct = null;
+      this.productControl.reset();
+      this.productControl.markAsUntouched();
+    }
+  }
+
+  onProductSelected(event) {
+    console.log("onProductSelected --> ", event.value); // Value
+    this.selectedProduct = event.value;
+    this.productControl.updateValueAndValidity();
+  }
+
+  nameDisplayFn(state: string | Product) {
+    console.log("state ", state);
+    if (!state) {
+      console.log("state is null");
+      return "";
+    } else {
+      console.log("state is not null");
+      return typeof state === "string" ? state : state.name;
+    }
+  }
 }

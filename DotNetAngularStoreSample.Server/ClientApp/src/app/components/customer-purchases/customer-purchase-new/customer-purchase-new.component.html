@@ -9,19 +9,31 @@
         <input
           type="text"
           placeholder="Select a product"
-          aria-label="Number"
           matInput
-          [formControl]="myControl"
+          [formControl]="productControl"
           [matAutocomplete]="auto"
+          (input)="onNameChange($event.target.value)"
+          #productName
+          (keyup.enter)="onEnterKeyDown()"
         />
-        <mat-autocomplete #auto="matAutocomplete">
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          [displayWith]="nameDisplayFn"
+          (optionSelected)="onProductSelected($event.option)"
+        >
           <mat-option
             *ngFor="let product of filteredProducts | async"
-            [value]="product.name"
+            [value]="product"
           >
             {{ product.name }}
           </mat-option>
         </mat-autocomplete>
+        <mat-error *ngIf="productControl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="productControl.hasError('validateProduct')">
+          Product is not selected
+        </mat-error>
       </mat-form-field>
     </form>
 

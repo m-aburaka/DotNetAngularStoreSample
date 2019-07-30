@@ -4,7 +4,12 @@ namespace DotNetAngularStoreSample.Models.Requests.Customers
 {
     public class CreateCustomerRequest : IRequest<int>
     {
-        public string Name { get; }
+        public string Name { get; set; }
+
+        public CreateCustomerRequest()
+        {
+            
+        }
 
         public CreateCustomerRequest(string name)
         {

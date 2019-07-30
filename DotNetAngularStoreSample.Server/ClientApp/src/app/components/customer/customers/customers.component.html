@@ -2,7 +2,7 @@
 <app-error [error]="error"></app-error>
 
 <div class="root-flex" *ngIf="!loading && !error">
-  <mat-list class="list-common">
+  <mat-list class="list-common" #list>
     <app-customer *ngFor="let customer of customers" [customer]="customer">
     </app-customer>
   </mat-list>

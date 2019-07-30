@@ -19,6 +19,9 @@ namespace DotNetAngularStoreSample.Repository.Ef.Repositories
                 where p.CustomerId == customerId
                 select p;
 
+            q = q.Include(p => p.Customer)
+                .Include(p => p.Product);
+
             return await q.ToListAsync();
         }
     }

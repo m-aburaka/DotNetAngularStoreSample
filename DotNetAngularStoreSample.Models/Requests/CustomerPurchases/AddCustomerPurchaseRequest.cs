@@ -8,8 +8,13 @@ namespace DotNetAngularStoreSample.Models.Requests.CustomerPurchases
 {
     public class AddCustomerPurchaseRequest : IRequest<int>
     {
-        public int CustomerId { get; }
-        public int ProductId { get; }
+        public int CustomerId { get; set; }
+        public int ProductId { get; set; }
+
+        public AddCustomerPurchaseRequest()
+        {
+            
+        }
 
         public AddCustomerPurchaseRequest(int customerId, int productId)
         {

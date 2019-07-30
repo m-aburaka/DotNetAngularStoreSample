@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DotNetAngularStoreSample.Models.Dtos;
+using DotNetAngularStoreSample.Models.Exceptions;
 using DotNetAngularStoreSample.Models.Requests.Customers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace DotNetAngularStoreSample.Server.Controllers
 {
     [Route("api/[controller]")]
-    public class CustomersController : Controller
+    [ApiController]
+    public class CustomersController : ControllerBase
     {
         private readonly IMediator _mediator;
 

@@ -1,11 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-.button-title {
-  background: none;
-  border: none;
-}
-
 .create-form-container {
   display: flex;
 }
@@ -22,7 +14,7 @@
 .list-common {
   flex-grow: 1;
   overflow: auto;
-  max-height: 80vh;
+  max-height: 70vh;
 }
 
 .button-container {

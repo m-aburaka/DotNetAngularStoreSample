@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { CustomersService } from "src/app/core/services/customers.service";
+import { FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-customer-new",
@@ -6,9 +8,21 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["../../shared.styles.css"]
 })
 export class CustomerNewComponent implements OnInit {
-  constructor() {}
+  nameControl = new FormControl("", [Validators.required]);
+
+  constructor(private customersService: CustomersService) {}
 
   ngOnInit() {}
 
-  onAddClick() {}
+  onEnterKeyDown(name: string) {
+    this.onAddClick(name);
+  }
+
+  onAddClick(name: string) {
+    this.nameControl.markAsTouched();
+    if (name) {
+      this.customersService.create(name);
+      this.nameControl.reset();
+    }
+  }
 }

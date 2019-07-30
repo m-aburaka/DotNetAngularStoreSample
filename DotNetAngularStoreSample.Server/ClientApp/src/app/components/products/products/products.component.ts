@@ -1,4 +1,9 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef
+} from "@angular/core";
 import { Product } from "../../../core/models/Product";
 import { ProductsService } from "../../../core/services/products.service";
 
@@ -8,6 +13,7 @@ import { ProductsService } from "../../../core/services/products.service";
   styleUrls: ["../../shared.styles.css"]
 })
 export class ProductsComponent implements OnInit {
+  @ViewChild("list", { read: ElementRef }) private list: ElementRef;
   products: Product[];
   loading = true;
   error: string;
@@ -19,10 +25,20 @@ export class ProductsComponent implements OnInit {
   }
 
   update() {
-    this.productsService.get().subscribe(
+    this.productsService.getAll().subscribe(
       products => {
+        if (!products) {
+          return;
+        }
+        const empty = this.products && this.products.length === 0;
         this.products = products;
         this.loading = false;
+
+        if (!empty && (this.list && this.list.nativeElement)) {
+          setTimeout(() => {
+            this.list.nativeElement.scrollTop = this.list.nativeElement.scrollHeight;
+          }, 200);
+        }
       },
       error => (this.error = error.message)
     );

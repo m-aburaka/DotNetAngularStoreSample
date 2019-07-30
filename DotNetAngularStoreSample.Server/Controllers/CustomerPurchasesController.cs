@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DotNetAngularStoreSample.Server.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class CustomerPurchasesController : Controller
     {
         private readonly IMediator _mediator;

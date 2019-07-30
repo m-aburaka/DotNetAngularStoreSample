@@ -13,7 +13,13 @@ import { Customer } from "../../../core/models/Customer";
 export class CustomerPurchasesComponent implements OnInit {
   customer: Customer;
   purchases: CustomerPurchase[];
-  loading = true;
+  customerLoading = true;
+  purchasesLoading = true;
+
+  public get loading(): boolean {
+    return this.customerLoading || this.purchasesLoading;
+  }
+
   error: string;
 
   constructor(
@@ -28,17 +34,18 @@ export class CustomerPurchasesComponent implements OnInit {
 
   update(): void {
     const id = +this.route.snapshot.paramMap.get("id");
-    this.customersService
-      .get(id)
-      .subscribe(
-        customer => (this.customer = customer),
-        error => (this.error = error.message)
-      );
+    this.customersService.get(id).subscribe(
+      customer => {
+        this.customer = customer;
+        this.customerLoading = false;
+      },
+      error => (this.error = error.message)
+    );
 
     this.customerPurchasesService.get(id).subscribe(
       purchases => {
         this.purchases = purchases;
-        this.loading = false;
+        this.purchasesLoading = false;
       },
       error => (this.error = error.message)
     );

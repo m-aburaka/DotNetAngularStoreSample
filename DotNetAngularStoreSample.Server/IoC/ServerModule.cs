@@ -26,7 +26,7 @@ namespace DotNetAngularStoreSample.Server.IoC
             builder
                 .RegisterType<AppDbContext>()
                 .WithParameter("options", DbContextOptionsFactory.Get(_configuration))
-                .SingleInstance();
+                .InstancePerLifetimeScope();
         }
     }
 }
