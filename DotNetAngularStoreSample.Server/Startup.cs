@@ -2,6 +2,7 @@ using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DotNetAngularStoreSample.Application.Services;
+using DotNetAngularStoreSample.Repository.Ef;
 using DotNetAngularStoreSample.Server.IoC;
 using DotNetAngularStoreSample.Server.Middleware;
 using Microsoft.AspNetCore.Builder;
@@ -93,6 +94,11 @@ namespace DotNetAngularStoreSample.Server
             builder.Populate(services);
             builder.RegisterModule(new ServerModule(Configuration));
             var container = builder.Build();
+
+            using (var tmpScope = container.BeginLifetimeScope())
+            using (var context = tmpScope.Resolve<AppDbContext>())
+                context.Database.EnsureCreated();
+
             return new AutofacServiceProvider(container);
         }
     }

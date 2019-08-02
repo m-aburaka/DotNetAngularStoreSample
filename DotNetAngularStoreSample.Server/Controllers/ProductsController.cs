@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DotNetAngularStoreSample.Server.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class ProductsController : Controller
     {
         private readonly IMediator _mediator;
@@ -29,10 +30,22 @@ namespace DotNetAngularStoreSample.Server.Controllers
             return await _mediator.Send(new GetProductRequest(id));
         }
 
+        [HttpPost("[action]")]
+        public async Task<PagedResult<ProductDto>> GetPage(GetProductPageRequest request)
+        {
+            return await _mediator.Send(request);
+        }
+
         [HttpPost]
         public async Task<int> Create(CreateProductRequest request)
         {
             return await _mediator.Send(request);
+        }
+
+        [HttpPost("[action]")]
+        public async Task Delete(DeleteProductRequest request)
+        {
+            await _mediator.Send(request);
         }
     }
 }

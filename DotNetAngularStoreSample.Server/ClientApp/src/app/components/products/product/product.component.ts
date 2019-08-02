@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Product } from "../../../core/models/Product";
+import { ProductsService } from "./../../../core/services/products.service";
 
 @Component({
   selector: "app-product",
@@ -9,9 +10,11 @@ import { Product } from "../../../core/models/Product";
 export class ProductComponent implements OnInit {
   @Input() product: Product;
 
-  constructor() {}
+  constructor(private productsService: ProductsService) {}
 
   ngOnInit() {}
 
-  onDeleteClick() {}
+  onDeleteClick() {
+    this.productsService.delete(this.product);
+  }
 }

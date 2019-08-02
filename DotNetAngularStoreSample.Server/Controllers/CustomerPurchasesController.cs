@@ -29,5 +29,11 @@ namespace DotNetAngularStoreSample.Server.Controllers
         {
             return await _mediator.Send(request);
         }
+
+        [HttpPost("[action]")]
+        public async Task Delete(DeleteCustomerPurchaseRequest request)
+        {
+            await _mediator.Send(request);
+        }
     }
 }

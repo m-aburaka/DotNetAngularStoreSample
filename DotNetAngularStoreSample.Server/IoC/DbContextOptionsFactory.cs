@@ -1,4 +1,5 @@
 ﻿using DotNetAngularStoreSample.Repository.Ef;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -12,8 +13,20 @@ namespace DotNetAngularStoreSample.Server.IoC
         public static DbContextOptions<AppDbContext> Get(IConfiguration configuration)
         {
             var connectionString = configuration["SqlServer:ConnectionString"];
+            var type = configuration["SqlServer:Type"];
+
             var builder = new DbContextOptionsBuilder<AppDbContext>();
-            builder.UseSqlServer(connectionString);
+            if (type?.ToLower() == "sqlite")
+            {
+                var connection = new SqliteConnection(connectionString);
+                connection.Open();
+                
+                builder.UseSqlite(connection);
+            }
+            else
+            {
+                builder.UseSqlServer(connectionString);
+            }
             return builder.Options;
         }
     }

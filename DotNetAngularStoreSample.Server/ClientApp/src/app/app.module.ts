@@ -13,7 +13,7 @@ import { ProductComponent } from "./components/products/product/product.componen
 import { CustomerNewComponent } from "./components/customer/customer-new/customer-new.component";
 import { ProductNewComponent } from "./components/products/product-new/product-new.component";
 import { CustomerPurchasesComponent } from "./components/customer-purchases/customer-purchases/customer-purchases.component";
-import { CustomerPurcaseComponent } from "./components/customer-purchases/customer-purchase/customer-purchase.component";
+import { CustomerPurchaseComponent } from "./components/customer-purchases/customer-purchase/customer-purchase.component";
 import { CustomerPurchaseNewComponent } from "./components/customer-purchases/customer-purchase-new/customer-purchase-new.component";
 import { SharedModule } from "./shared/shared.module";
 import { CoreModule } from "./core/core.module";
@@ -30,7 +30,7 @@ import { AppRoutingModule } from "./app-routing.module";
     CustomerNewComponent,
     ProductNewComponent,
     CustomerPurchasesComponent,
-    CustomerPurcaseComponent,
+    CustomerPurchaseComponent,
     CustomerPurchaseNewComponent
   ],
   imports: [

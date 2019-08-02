@@ -1,23 +1,21 @@
 <app-spinner *ngIf="loading && !error"></app-spinner>
 <app-error [error]="error"></app-error>
 
-<div class="root-flex" *ngIf="!loading && !error">
-  <h4 class="customer-title" *ngIf="customer">
-    {{ customer.name }}'s purchases
-  </h4>
+<h4 class="create-container--heading" *ngIf="customer">
+  {{ customer.name }}'s purchases
+</h4>
 
-  <mat-divider></mat-divider>
+<mat-divider></mat-divider>
 
-  <mat-list class="list-common">
-    <app-customer-purchase
-      *ngFor="let purchase of purchases"
-      [purchase]="purchase"
-    >
-    </app-customer-purchase>
-  </mat-list>
+<mat-list class="list" *ngIf="!loading && !error" #list>
+  <app-customer-purchase
+    *ngFor="let purchase of purchases"
+    [purchase]="purchase"
+  >
+  </app-customer-purchase>
+</mat-list>
 
-  <app-customer-purchase-new
-    class="create-container"
-    [customer]="customer"
-  ></app-customer-purchase-new>
-</div>
+<app-customer-purchase-new
+  class="create-container"
+  [customer]="customer"
+></app-customer-purchase-new>

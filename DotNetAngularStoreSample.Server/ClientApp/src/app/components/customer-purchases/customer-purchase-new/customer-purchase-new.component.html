@@ -1,53 +1,47 @@
-<div>
-  <h4>Add new purchase</h4>
+<h4 class="create-container--heading">Add new purchase</h4>
 
-  <mat-divider></mat-divider>
+<mat-divider></mat-divider>
 
-  <div class="create-form-container">
-    <form>
-      <mat-form-field>
-        <input
-          type="text"
-          placeholder="Select a product"
-          matInput
-          [formControl]="productControl"
-          [matAutocomplete]="auto"
-          (input)="onNameChange($event.target.value)"
-          #productName
-          (keyup.enter)="onEnterKeyDown()"
-        />
-        <mat-autocomplete
-          #auto="matAutocomplete"
-          [displayWith]="nameDisplayFn"
-          (optionSelected)="onProductSelected($event.option)"
-        >
-          <mat-option
-            *ngFor="let product of filteredProducts | async"
-            [value]="product"
-          >
-            {{ product.name }}
-          </mat-option>
-        </mat-autocomplete>
-        <mat-error *ngIf="productControl.hasError('required')">
-          Name is <strong>required</strong>
-        </mat-error>
-        <mat-error *ngIf="productControl.hasError('validateProduct')">
-          Product is not selected
-        </mat-error>
-      </mat-form-field>
-    </form>
-
-    <div>
-      <button
-        mat-raised-button
-        color="primary"
-        class="button"
-        (click)="onAddClick()"
+<form class="create-container--form">
+  <mat-form-field>
+    <input
+      type="text"
+      placeholder="Select a product"
+      matInput
+      [formControl]="productControl"
+      [matAutocomplete]="auto"
+      (input)="onNameChange($event.target.value)"
+      #productName
+      (keyup.enter)="onEnterKeyDown()"
+    />
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      [displayWith]="nameDisplayFn"
+      (optionSelected)="onProductSelected($event.option)"
+    >
+      <mat-option
+        *ngFor="let product of filteredProducts | async"
+        [value]="product"
       >
-        ADD
-      </button>
-    </div>
+        {{ product.name }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="productControl.hasError('required')">
+      Name is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="productControl.hasError('validateProduct')">
+      Product is not selected
+    </mat-error>
+  </mat-form-field>
 
-    <mat-divider></mat-divider>
-  </div>
-</div>
+  <button
+    mat-raised-button
+    color="primary"
+    class="button"
+    (click)="onAddClick()"
+  >
+    ADD
+  </button>
+</form>
+
+<mat-divider></mat-divider>

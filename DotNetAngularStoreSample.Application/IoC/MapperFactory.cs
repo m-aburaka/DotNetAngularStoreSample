@@ -20,7 +20,8 @@ namespace DotNetAngularStoreSample.Application.IoC
                 cfg.CreateMap<Product, ProductDto>();
                 cfg.CreateMap<CreateProductRequest, Product>();
                 cfg.CreateMap<CustomerPurchase, CustomerPurchaseDto>()
-                    .ForMember(dto => dto.ProductName, e => e.MapFrom(purchase => purchase.Product.Name));
+                    .ForMember(dto => dto.ProductName, e => e.MapFrom(purchase => purchase.Product.Name))
+                        .ForMember(dto => dto.CustomerId, e => e.MapFrom(purchase => purchase.CustomerId));
             });
             var mapper = config.CreateMapper();
             return mapper;

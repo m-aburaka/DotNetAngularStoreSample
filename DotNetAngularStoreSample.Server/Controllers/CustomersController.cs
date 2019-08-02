@@ -31,10 +31,22 @@ namespace DotNetAngularStoreSample.Server.Controllers
             return await _mediator.Send(new GetCustomerRequest(id));
         }
 
+        [HttpPost("[action]")]
+        public async Task<PagedResult<CustomerDto>> GetPage(GetCustomerPageRequest request)
+        {
+            return await _mediator.Send(request);
+        }
+
         [HttpPost]
         public async Task<int> Create(CreateCustomerRequest request)
         {
             return await _mediator.Send(request);
+        }
+
+        [HttpPost("[action]")]
+        public async Task Delete(DeleteCustomerRequest request)
+        {
+            await _mediator.Send(request);
         }
     }
 }

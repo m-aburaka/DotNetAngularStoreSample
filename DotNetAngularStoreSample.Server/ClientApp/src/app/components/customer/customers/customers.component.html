@@ -1,11 +1,16 @@
 <app-spinner *ngIf="loading && !error"></app-spinner>
 <app-error [error]="error"></app-error>
 
-<div class="root-flex" *ngIf="!loading && !error">
-  <mat-list class="list-common" #list>
-    <app-customer *ngFor="let customer of customers" [customer]="customer">
-    </app-customer>
-  </mat-list>
+<mat-list class="list" *ngIf="!loading && !error" #list>
+  <app-customer *ngFor="let customer of customers" [customer]="customer">
+  </app-customer>
+</mat-list>
+<mat-paginator
+  [length]="itemsCount"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onPaginationChange($event.pageIndex, $event.pageSize)"
+>
+</mat-paginator>
 
-  <app-customer-new class="create-container"></app-customer-new>
-</div>
+<app-customer-new class="create-container"></app-customer-new>

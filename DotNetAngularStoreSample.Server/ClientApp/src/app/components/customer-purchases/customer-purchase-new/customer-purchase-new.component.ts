@@ -86,7 +86,6 @@ export class CustomerPurchaseNewComponent implements OnInit {
   }
 
   onAddClick() {
-    console.log("onAdd --> ", this.selectedProduct);
     if (this.selectedProduct) {
       this.customerPurchasesService.add(this.customer, this.selectedProduct);
       this.selectedProduct = null;
@@ -96,18 +95,14 @@ export class CustomerPurchaseNewComponent implements OnInit {
   }
 
   onProductSelected(event) {
-    console.log("onProductSelected --> ", event.value); // Value
     this.selectedProduct = event.value;
     this.productControl.updateValueAndValidity();
   }
 
   nameDisplayFn(state: string | Product) {
-    console.log("state ", state);
     if (!state) {
-      console.log("state is null");
       return "";
     } else {
-      console.log("state is not null");
       return typeof state === "string" ? state : state.name;
     }
   }

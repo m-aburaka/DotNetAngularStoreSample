@@ -6,6 +6,7 @@ import httpOptions from "./httpOptions";
 import AddCustomerPurchaseRequest from "../models/AddCustomerPurchaseRequest";
 import { Customer } from "../models/Customer";
 import { Product } from "../models/Product";
+import { DeleteCustomerPurchaseRequest } from "./../models/DeleteCustomerPurhaseRequest";
 
 @Injectable({
   providedIn: "root"
@@ -25,7 +26,6 @@ export class CustomerPurchasesService {
 
   get(customerId: number): Observable<CustomerPurchase[]> {
     const subject = this.getOrCreateSubject(customerId);
-    const purchases = this.getOrCreatePurchases(customerId);
 
     this.http
       .get<CustomerPurchase[]>(
@@ -70,17 +70,35 @@ export class CustomerPurchasesService {
       );
   }
 
+  delete(purchase: CustomerPurchase) {
+    const subject = this.getOrCreateSubject(purchase.customerId);
+    const purchases = this.getOrCreatePurchases(purchase.customerId);
+
+    const request = new DeleteCustomerPurchaseRequest();
+    request.purchaseId = purchase.id;
+
+    this.http
+      .post(this.baseUrl + "api/CustomerPurchases/Delete", request, httpOptions)
+      .subscribe(
+        _ => {
+          const newPurchases = purchases.filter(c => c.id !== purchase.id);
+          this._purchasesByCustomer.set(purchase.customerId, newPurchases);
+          subject.next(newPurchases);
+        },
+        error => {
+          subject.error(error);
+        }
+      );
+  }
+
   getOrCreateSubject(customerId: number) {
     let subject = this._customerPurchasesSubjectsByCustomer.get(customerId);
     if (!subject) {
-      console.log("creating subject");
       this._customerPurchasesSubjectsByCustomer.set(
         customerId,
         new BehaviorSubject<CustomerPurchase[]>(null)
       );
       subject = this._customerPurchasesSubjectsByCustomer.get(customerId);
-      console.log("created - ", subject);
-      console.log("subjects  - ", this._customerPurchasesSubjectsByCustomer);
     }
     return subject;
   }

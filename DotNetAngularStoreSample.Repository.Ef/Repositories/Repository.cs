@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DotNetAngularStoreSample.Application.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,11 @@ namespace DotNetAngularStoreSample.Repository.Ef.Repositories
             return entity != null;
         }
 
+        public async Task<int> Count()
+        {
+            return await Context.Set<T>().CountAsync();
+        }
+
         public async Task<IList<T>> Get()
         {
             return await Context.Set<T>().ToListAsync();
@@ -28,6 +34,16 @@ namespace DotNetAngularStoreSample.Repository.Ef.Repositories
         public async Task<T> Get(int id)
         {
             return await Context.Set<T>().FindAsync(id);
+        }
+
+        public async Task<IList<T>> GetPage(int page, int pageSize)
+        {
+            var skip = page * pageSize;
+            var list = await Context.Set<T>()
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
+            return list;
         }
 
         public async Task Insert(T entity)
@@ -46,6 +62,14 @@ namespace DotNetAngularStoreSample.Repository.Ef.Repositories
         {
             Context.Set<T>().Remove(entity);
             await Context.SaveChangesAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var entity = await Get(id);
+            if (entity != null)
+                await Delete(entity);
+
         }
     }
 }

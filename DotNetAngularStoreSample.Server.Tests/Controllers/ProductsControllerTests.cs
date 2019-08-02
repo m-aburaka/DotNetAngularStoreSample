@@ -43,5 +43,24 @@ namespace DotNetAngularStoreSample.Server.Tests.Controllers
             var ex = await Assert.ThrowsAsync<NotFoundException>(async () => await Controller.Get(5555));
             Assert.Contains("not found", ex.Message.ToLower());
         }
+
+        [Fact]
+        public async Task Delete_Existing_ShouldDelete()
+        {
+            var request = new CreateProductRequest("Test");
+            var id = await Controller.Create(request);
+
+            await Controller.Delete(new DeleteProductRequest { ProductId = id });
+
+            var products = await Controller.GetAll();
+
+            Assert.DoesNotContain(products, c => c.Id == id);
+        }
+
+        [Fact]
+        public async Task Delete_NotExisting_DoNothing()
+        {
+            await Controller.Delete(new DeleteProductRequest(55555));
+        }
     }
 }
